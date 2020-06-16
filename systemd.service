@@ -2,7 +2,7 @@
 Description=Payment Service
 
 [Service]
-User=roboshop
+User=root
 WorkingDirectory=/home/roboshop/payment
 ExecStart=/usr/local/bin/uwsgi --ini payment.ini
 
