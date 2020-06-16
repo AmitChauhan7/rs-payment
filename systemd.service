@@ -1,0 +1,10 @@
+[Unit]
+Description=Payment Service
+
+[Service]
+User=roboshop
+WorkingDirectory=/home/roboshop/payment
+ExecStart=/usr/local/bin/uwsgi --ini payment.ini
+
+[Install]
+WantedBy=multi-user.target
