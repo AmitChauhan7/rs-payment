@@ -5,6 +5,7 @@ Description=Payment Service
 User=root
 WorkingDirectory=/home/roboshop/payment
 ExecStart=/usr/local/bin/uwsgi --ini payment.ini
+SyslogIdentifier=payment
 
 [Install]
 WantedBy=multi-user.target
