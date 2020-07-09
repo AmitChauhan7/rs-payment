@@ -19,6 +19,10 @@ steps:
     versionSpec: '$(python.version)'
   displayName: 'Use Python $(python.version)'
 
+- task: CmdLine@2
+  inputs:
+    script: 'apt-get install pylint'
+
 - script: |
     pylint payment.py || true
     pylint rabbitmq.py || true
