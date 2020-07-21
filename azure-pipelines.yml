@@ -7,10 +7,6 @@ trigger:
 - master
 
 pool: 'AWS'
-strategy:
-  matrix:
-    Python37:
-      python.version: '3.7'
 
 steps:
 - task: UsePythonVersion@0
@@ -20,7 +16,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'sudo apt-get install pylint'
+    script: 'sudo apt-get install pylint -y'
 
 - script: |
     pylint payment.py || true
