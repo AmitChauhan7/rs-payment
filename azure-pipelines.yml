@@ -27,3 +27,15 @@ steps:
     pylint payment.py || true
     pylint rabbitmq.py || true
   displayName: 'pytest'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      mkdir publish
+      mv payment.ini *.py requirements.txt publish
+      cd publish
+      az artifacts universal publish --organization https://dev.azure.com/DevOps-Batches/ --project="DevOps48" --scope project --feed RoboShop --name  $(appName) --version 1.0.$(Build.BuildId) --description "$(appName)" --path .
+  displayName: Publish Artifacts
+
+variables:
+  appName: "payment"
