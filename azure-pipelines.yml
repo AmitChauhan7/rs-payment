@@ -9,10 +9,6 @@ trigger:
 pool: 'AWS'
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
 
 - task: CmdLine@2
   inputs:
