@@ -66,7 +66,7 @@ def pay(id):
 
     # check user exists
     try:
-        req = requests.get('http://{user}:7007/check/{id}'.format(user=USER, id=id))
+        req = requests.get('http://{user}/check/{id}'.format(user=USER, id=id))
     except requests.exceptions.RequestException as err:
         app.logger.error(err)
         return str(err), 500
@@ -108,7 +108,7 @@ def pay(id):
     # add to order history
     if not anonymous_user:
         try:
-            req = requests.post('http://{user}:7007/order/{id}'.format(user=USER, id=id),
+            req = requests.post('http://{user}/order/{id}'.format(user=USER, id=id),
                     data=json.dumps({'orderid': orderid, 'cart': cart}),
                     headers={'Content-Type': 'application/json'})
             app.logger.info('order history returned {}'.format(req.status_code))
@@ -118,7 +118,7 @@ def pay(id):
 
     # delete cart
     try:
-        req = requests.delete('http://{cart}:7001/cart/{id}'.format(cart=CART, id=id));
+        req = requests.delete('http://{cart}/cart/{id}'.format(cart=CART, id=id));
         app.logger.info('cart delete returned {}'.format(req.status_code))
     except requests.exceptions.RequestException as err:
         app.logger.error(err)
