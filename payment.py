@@ -66,7 +66,7 @@ def pay(id):
 
     # check user exists
     try:
-        req = requests.get('http://{user}/check/{id}'.format(user=USER, id=id))
+        req = requests.get('http://{user}:7007/check/{id}'.format(user=USER, id=id))
     except requests.exceptions.RequestException as err:
         app.logger.error(err)
         return str(err), 500
@@ -108,7 +108,7 @@ def pay(id):
     # add to order history
     if not anonymous_user:
         try:
-            req = requests.post('http://{user}/order/{id}'.format(user=USER, id=id),
+            req = requests.post('http://{user}:7007/order/{id}'.format(user=USER, id=id),
                     data=json.dumps({'orderid': orderid, 'cart': cart}),
                     headers={'Content-Type': 'application/json'})
             app.logger.info('order history returned {}'.format(req.status_code))
@@ -118,7 +118,7 @@ def pay(id):
 
     # delete cart
     try:
-        req = requests.delete('http://{cart}/cart/{id}'.format(cart=CART, id=id));
+        req = requests.delete('http://{cart}:7000/cart/{id}'.format(cart=CART, id=id));
         app.logger.info('cart delete returned {}'.format(req.status_code))
     except requests.exceptions.RequestException as err:
         app.logger.error(err)
@@ -180,6 +180,6 @@ if __name__ == "__main__":
     sh.setLevel(logging.INFO)
     fmt = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     app.logger.info('Payment gateway {}'.format(PAYMENT_GATEWAY))
-    port = int(os.getenv("SHOP_PAYMENT_PORT", "7004"))
+    port = int(os.getenv("SHOP_PAYMENT_PORT", "7002"))
     app.logger.info('Starting on port {}'.format(port))
     app.run(host='0.0.0.0', port=port)
